@@ -1,0 +1,7 @@
+
+From 2D matrix
+
+1. state_of_wakanda_02 => gap strategy
+2. Ring Rotate
+
+

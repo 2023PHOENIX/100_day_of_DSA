@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        "2D_Array",
+        "Practise"
+    ],
+    "files.associations": {
+        "new": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}
