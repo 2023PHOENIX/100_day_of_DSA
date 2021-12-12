@@ -283,20 +283,21 @@ public:
 private:
     void displayReversePointerRecHelper(Node *node)
     {
-        // basee case 
-        if(!node){
+        if(!node->next){
             return;
         }
-
         displayReversePointerRecHelper(node->next);
-        cout << node->data << " ";
+        node->next->next = node;
     }
 
 public:
     void displayReversePointerRec()
     {
         displayReversePointerRecHelper(this->head);
-        cout << endl;
+        Node *temp = head;
+        head = tail;
+        tail = temp;
+        temp->next = nullptr;
     }
 };
 
@@ -324,10 +325,10 @@ int main()
     cin >> b;
 
     cout << l.toString() << endl;
+    l.displayReversePointerRec();
     l.addLast(a);
     l.addFirst(b);
-    l.displayReversePointerRec();
-    // cout << l.toString() << endl;
+    cout << l.toString() << endl;
 
     return 0;
 }
