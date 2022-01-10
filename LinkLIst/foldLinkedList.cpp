@@ -95,24 +95,32 @@ public:
     }
 
     node *left = NULL;
-    void foldHelper(node *right,int cnt)
+    void foldHelper(node *right, int cnt)
     {
-        if (!right)
+        if (right->next == nullptr)
         {
             return;
         }
-        foldHelper(right->next,cnt+1);
-        if(cnt > size/2){
-        node *temp = left->next;
-        left->next = right;
-        right->next = temp;
-        left = temp;
+
+        if (cnt > size / 2)
+        {
+
+            foldHelper(right->next, cnt + 1);
+            node *temp = left->next;
+            left->next = right;
+            right->next = temp;
+            left = temp;
+        }
+        else if (cnt == size / 2)
+        {
+            tail = right;
+            right->next = nullptr;
         }
     }
     void fold()
     {
         left = head;
-        foldHelper(head,0);
+        foldHelper(head, 0);
     }
 };
 
