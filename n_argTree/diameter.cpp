@@ -172,3 +172,5 @@ int main()
     diameter(root);
     cout << max_dia << endl;
 }
+
+goldsman ke test ke lie tips
