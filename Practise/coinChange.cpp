@@ -1,45 +1,38 @@
-#include<vector>
 #include<iostream>
+#include<vector>
 #include<cstring>
+#include<climits>
+// const INT_MAX  = 1e5;
 using namespace std;
 
-int dp[1001];
-int arr[1001];
-int n;
-int tar;
+int coinChange(vector<int> &coins,int target){
 
-int F(int idx, int sum)
-{
-    if(sum==0){
-        return dp[0] = 1;
+
+    vector<int> dp(target + 1,1e5);
+
+    dp[0] = 0;
+
+    for(int i = 0; i<=target;i++){
+        for(int j = 0;j<coins.size();j++){
+            if(i >= coins[j]){
+                dp[i] = min(dp[i],dp[i-coins[j]]) + 1;
+            }
+        }
     }
-
-   
-    if(sum < 0){
-        return 0;
+    for(int i = 0; i<=target;i++){
+        cout<<i<<" -> " << dp[i]<<endl;
     }
-    if(idx >= n){
-        return 0;
-    }
+    return dp[target];
 
-    
-
-    return dp[sum] = F(idx + 1, sum) + F(idx , sum-arr[idx]);
 }
-
 int main(){
+    int n;  cin>>n;
+    vector<int> coins(n,0);
 
-    cin >> n;
+    for(int &x : coins)cin>>x;
 
-    for (int i = 0; i < n;i++){
-        cin >> arr[i];
-    }
+    int tar;    cin>>tar;
 
-    cin >> tar;
-
-
-    memset(dp, sizeof dp,0);
-    cout << F(0, tar) << endl;
-
-    cout << dp[tar] << endl;
+    int d = coinChange(coins,tar);
+        cout<<d<<endl;
 }

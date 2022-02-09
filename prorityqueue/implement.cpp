@@ -28,7 +28,7 @@ public:
 
     int left = 2*i + 1;
     int right = 2*i + 2;
-
+   
     if(left < data.size() and data[left] < data[mini])
         mini = left;
     if(right < data.size() and data[right] < data[mini])  
