@@ -4,7 +4,10 @@
         "Practise"
     ],
     "files.associations": {
-        "new": "cpp"
+        "new": "cpp",
+        "sstream": "cpp",
+        "regex": "cpp",
+        "iostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

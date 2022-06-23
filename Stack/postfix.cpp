@@ -3,125 +3,88 @@
 
 using namespace std;
 
-int priority(int x){
-    return (x=='+' || x=='-')?1:2;
-}
 
-string operation(string a , string b,char ch){
-    string P  =  a + b;
-    P = ch + P;
-    // cout<<P<<endl;
-    return P;
-}
 
-string Postoperation(string a , string b,char ch){
-    string P  =  a + b;
-    P = P + ch;
-    // cout<<P<<endl;
-    return P;
-}
+void solve(string str)
+{
 
-void performOperation(stack<char> &opStack,stack<string> &valueStack){
-    
-    string b = valueStack.top();
-    valueStack.pop();
-    
-    string a = valueStack.top();
-    valueStack.pop();
-    
-    char ch = opStack.top();
-    opStack.pop();
-    
-    
-    string res = operation(a,b,ch);
-    valueStack.push(res);
-}
 
-void PostperformOperation(stack<char> &opStack,stack<string> &valueStack){
-    
-    string b = valueStack.top();
-    valueStack.pop();
-    
-    string a = valueStack.top();
-    valueStack.pop();
-    
-    char ch = opStack.top();
-    opStack.pop();
-    
-    
-    string res = Postoperation(a,b,ch);
-    valueStack.push(res);
-}
-
-void solve(string str){
-    stack<char> opStack;
-    stack<string> valueStack;
-    
-    for(int i = 0; i<str.length() ; i++){
-            char ch = str[i];
-
-            if(ch=='('){
-                opStack.push(ch);
-            }else if(ch=='+' || ch=='-' || ch=='*' || ch=='/'){
-                while(opStack.size() > 0 and opStack.top() != '(' and priority(ch) <= priority(opStack.top())){
-                    PostperformOperation(opStack,valueStack);
-                }
-                opStack.push(ch);
-            }else if(ch==')'){
-                while(opStack.size() > 0 and opStack.top()!='('){
-                    PostperformOperation(opStack,valueStack);
-                }
-                opStack.pop();
-            }else{
-                string x= "";
-                x += ch;
-                valueStack.push(x);
-            }
-        }
-    
-    while(opStack.size() > 0){
-        PostperformOperation(opStack,valueStack);
-    }
-
-    cout<<valueStack.top()<<endl;
-    valueStack.pop();
-
-    // prefix 
-    
-
-    for(int i = 0; i<str.length() ; i++){
+    stack<int> value;
+    stack<string> infix;
+    stack<string> prefix;
+    for(int i = 0 ; i < str.length(); i++)
+    {
         char ch = str[i];
 
-        if(ch=='('){
-            opStack.push(ch);
-        }else if(ch=='+' || ch=='-' || ch=='*' || ch=='/'){
-            while(opStack.size() > 0 and opStack.top() != '(' and priority(ch) <= priority(opStack.top())){
-                performOperation(opStack,valueStack);
-            }
-            opStack.push(ch);
-        }else if(ch==')'){
-            while(opStack.size() > 0 and opStack.top()!='('){
-                performOperation(opStack,valueStack);
-            }
-            opStack.pop();
-        }else{
-            string x= "";
+        if(ch >= '0' and ch <= '9')
+        {
+            value.push(ch - '0');
+            string x = "";
             x += ch;
-            valueStack.push(x);
+            infix.push(x);
+            prefix.push(x);
+        }
+        else if(ch == '+' || ch == '-' || ch == '*' || ch == '/')
+        {
+            int b = value.top();
+            value.pop();
+            int a = value.top();
+            value.pop();
+
+            string y = infix.top();
+            infix.pop();
+            string x = infix.top();
+            infix.pop();
+
+            // infix 
+            string temp = "";
+            temp = x;
+            temp += ch;
+            temp += y;
+            temp = '(' + temp;
+            temp += ')';
+            infix.push(temp);
+
+            // prefix 
+            y = prefix.top();
+            prefix.pop();
+            x = prefix.top();
+            prefix.pop();
+
+             temp = "";
+            temp = ch;
+            temp += x;
+            temp += y;
+
+            if(ch == '+')
+            {
+                value.push(a + b);
+            }
+            if(ch == '-')
+            {
+                value.push(a - b);
+            }
+            if(ch == '*')
+            {
+                value.push(a * b);
+            }
+            if(ch == '/')
+            {
+                value.push(a / b);
+            }
         }
     }
-    
-    while(opStack.size() > 0){
-        performOperation(opStack,valueStack);
-    }
 
-    cout<<valueStack.top()<<endl;
-
-    
+    cout << value.top() << endl;
+    cout << infix.top() << endl;
+    cout<< prefix.top() <<endl;
 }
-
-int main(){
-    string str; getline(cin,str);
+int main()
+{
+    string str;
+    getline(cin, str);
 
     solve(str);
+
+
 }

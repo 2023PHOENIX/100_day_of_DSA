@@ -3,34 +3,41 @@
 #include<queue>
 using namespace std;
 
-class Student{
+class Student
+{
 public:
-	string name;
-	int height;
-	Student(string name,int height){
-		this->name = name;
-		this->height = height;
-	}
-	void display(){
-		cout<<name<<" , "<<height<<endl;
-	}
+    string name;
+    int height;
+    Student(string name, int height)
+    {
+        this->name = name;
+        this->height = height;
+    }
+    void display()
+    {
+        cout << name << " , " << height << endl;
+    }
 };
-class Compare{
+class Compare
+{
 public:
-	bool operator()(Student &s1,Student &s2){
-		return s1.height < s2.height; // max heap
-	}
+    bool operator()(Student &s1, Student &s2)
+    {
+        return s1.height < s2.height; // max heap
+    }
 };
-int main(){
+int main()
+{
 
-	vector<Student> v = {{"harshit",19},{"nikita",18},{"jes",29}};
-	priority_queue<Student,vector<Student>,Compare> pq;
-	
-	for(Student x : v)pq.push(x);
+    vector<Student> v = {{"harshit", 19}, {"nikita", 18}, {"jes", 29}};
+    priority_queue<Student, vector<Student>, Compare> pq;
 
-	while(pq.size() > 0){
-		cout<<pq.top().name<<","<<pq.top().height<<endl;
-		pq.pop();
-	}
+    for(Student x : v)pq.push(x);
+
+    while(pq.size() > 0)
+    {
+        cout << pq.top().name << "," << pq.top().height << endl;
+        pq.pop();
+    }
 
 }

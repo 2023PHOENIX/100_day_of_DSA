@@ -60,11 +60,13 @@ vector<int> mergeSort(vector<int> &A, int low, int high)
 int main()
 {
 
-    vector<int> A = {1132, 330, 8, 119,9};
+    vector<int> A = {1132, 330, 8, 119, 9};
 
     // vector<int> b = {19, 87, 373};
 
-    A = mergeSort(A, 0, A.size() - 1);    for(auto x : A){
+    A = mergeSort(A, 0, A.size() - 1);
+    for(auto x : A)
+    {
         cout << x << " ";
     }
 }
